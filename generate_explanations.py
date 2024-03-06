@@ -30,16 +30,19 @@ def GenerateExplanations(methods, data_name, model_name, n_test_samples=100):
     return explanations
 
 if __name__ == '__main__':
-    if not os.path.exists('explanations'):
-        os.makedirs('explanations')
-    methods = ['control', 'grad', 'ig', 'itg', 'sg', 'shap', 'lime']
-    data_names = ['adult', 'compas', 'gaussian', 'german', 'gmsc', 'heart', 'heloc', 'pima']
+    #if not os.path.exists('explanations'):
+        #os.makedirs('explanations')
+    #methods = ['control', 'grad', 'ig', 'itg', 'sg', 'shap', 'lime']
+    methods = [ 'grad']
+    #data_names = ['adult', 'compas', 'gaussian', 'german', 'gmsc', 'heart', 'heloc', 'pima']
+    data_names = ['adult']
     model_names = ['lr', 'ann']
-    n_test_samples = 1000
+    n_test_samples = 800
     for data_name in data_names:
         for model_name in model_names:
             print(f"Data: {data_name}, Model: {model_name}")
             explanations = GenerateExplanations(methods, data_name, model_name, n_test_samples)
             for method, explanation in explanations.items():
-                filename = f'explanations/{data_name}_{model_name}_{method}_{n_test_samples}.npy'
+                filename = f'D:/Users/curryyu/Desktop/研究生/文献/LLM与可解释性/explanations/{data_name}_{model_name}_{method}_{n_test_samples}.npy'
                 np.save(filename.format(filename), explanation.detach().numpy())
+                np.load(r'D:\Users\curryyu\Desktop\研究生\文献\LLM与可解释性\explanations\adult_lr_grad_800.npy')

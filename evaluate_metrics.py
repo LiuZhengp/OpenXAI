@@ -67,8 +67,10 @@ def _construct_kwargs(metric):
 if __name__ == '__main__':
     # Configuration
     model_names = ['lr', 'ann']
-    data_names = ['adult', 'compas', 'gaussian', 'german', 'gmsc', 'heart', 'heloc', 'pima']
-    methods = ['control', 'grad', 'ig', 'itg', 'sg', 'shap', 'lime']
+    #data_names = ['adult', 'compas', 'gaussian', 'german', 'gmsc', 'heart', 'heloc', 'pima']
+    data_names = ['adult']
+    #methods = ['control', 'grad', 'ig', 'itg', 'sg', 'shap', 'lime']
+    methods = ['grad']
     n_test = 100
     metrics = stability_metrics #+ ground_truth_metrics + prediction_metrics
     seed = -1  # -1 to use instance index as seed for stability/perturbation metrics
@@ -102,6 +104,7 @@ if __name__ == '__main__':
             model = LoadModel(data_name, model_name)
             trainloader, testloader = return_loaders(data_name)
             inputs = testloader.dataset.data[:n_test]
+            inputs = torch.tensor(inputs,dtype=torch.float32)
             predictions = model(inputs).argmax(-1)
             metrics_folder_name = f'metric_evals/{model_name}_{data_name}/'
             if not os.path.exists(metrics_folder_name):

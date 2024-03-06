@@ -29,7 +29,7 @@ explainer = Explainer(method=method, model=model,
 explanations = explainer.get_explanation(inputs.float(), label=labels.type(torch.int64))
 
 """### (4) Choose an evaluation metric (see evaluate_metrics._construct_kwargs for more details)"""
-metric = 'PGI'  # or PGU
+metric = 'PGU'  # or PGU
 kwargs = {
     'explanations': explanations,  # update kwargs per explanation method
     'inputs': inputs,
